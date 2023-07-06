@@ -1,7 +1,7 @@
 # webhook-sample
 Webhook Sample
 
-This sample creates a simple asynchronous API sample to register a webhook and receive temperature changes. The system is abstracted by and internal topic and a scheduler component.
+This implements a simple asynchronous API sample to register a webhook and receive temperature changes. The system is abstracted by and internal topic and a scheduler component.
 
 # Solution Design
 
