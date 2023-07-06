@@ -7,6 +7,14 @@ This sample creates a simple asynchronous API sample to register a webhook and r
 
 ![solution design](images/Solution.jpg)
 
+# TODO
+
+This is a sample implementation. There are several upgrades to-do:
+
+- Multi threading and production grade performance improvements;
+- Webhook Security: Oauth-2 key registration and authorization for POST CALLs;
+- DLQ: DLQ and Reprocessing API.
+
 # Pre-reqs
 
 - GNU Make
@@ -45,12 +53,12 @@ http://localhost:9090/docs
 There is already a subscriber registered to the service, which will run on the following URL `http://localhost:9099`
 
 
-# Running the Scheduler
+# Running the System Tasks
 
-To post messages to the internal topic:
+This component is an abstract representation of the system, which will do the business thing and publishes messages to notify the subscribers. 
 
 ```
-make run-scheduler
+make run-system
 ```
 
 # Running the Worker
@@ -69,9 +77,3 @@ Stop the kafka local broker.
 ```
 make infra-stop
 ```
-
-# TODO
-
-- Multi threading and production grade performance improvements;
-- Webhook Security: Oauth-2 key registration and authorization for POST CALLs;
-- DLQ: DLQ and Reprocessing API.

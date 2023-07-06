@@ -59,5 +59,5 @@ if __name__ == '__main__':
                          on_delivery=delivery_report)
     producer.flush()
 
-print(text2art("Scheduler"))
+print(text2art("System"))
 print("starting...\n")

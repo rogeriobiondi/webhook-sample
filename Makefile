@@ -23,10 +23,10 @@ infra-stop:  ## Stop infra
 run-api:  ## Stop infra
 	@poetry run uvicorn api:app --port 9090 --host 0.0.0.0 --reload
 
-.PHONY: run-scheduler
-run-scheduler:  ## Stop infra
+.PHONY: run-system
+run-system:  ## Stop infra
 	@clear
-	@poetry run python scheduler.py
+	@poetry run python system.py
 
 .PHONY: run-worker
 run-worker:  ## Stop infra
