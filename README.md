@@ -72,6 +72,6 @@ make infra-stop
 
 # TODO
 
-- Multi threading and production grade performance improvements
-- Implement DLQ
-- Implement DLQ API
+- Multi threading and production grade performance improvements;
+- Webhook Security: Oauth-2 key registration and authorization for POST CALLs;
+- DLQ: DLQ and Reprocessing API.
