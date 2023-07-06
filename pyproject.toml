@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "webhook-sample"
+version = "0.1.0"
+description = "async api sample"
+authors = ["Rogerio Biondi <rogerio.biondi@loggi.com>"]
+readme = "README.md"
+packages = [{include = "webhook_sample"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.99.1"
+uvicorn = {extras = ["standard"], version = "^0.22.0"}
+confluent-kafka = "^2.1.1"
+requests = "^2.31.0"
+jsonschema = "^4.18.0"
+pysondb = "^1.6.7"
+backoff = "^2.2.1"
+art = "^6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
