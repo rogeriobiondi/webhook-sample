@@ -21,7 +21,7 @@ infra-stop:  ## Stop infra
 
 .PHONY: run-api
 run-api:  ## Stop infra
-	@poetry run uvicorn api:app --port 9090 --host 0.0.0.0 --reload
+	@poetry run uvicorn app.api:app --port 9090 --host 0.0.0.0 --reload
 
 .PHONY: run-system
 run-system:  ## Stop infra
