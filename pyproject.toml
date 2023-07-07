@@ -17,6 +17,7 @@ pysondb = "^1.6.7"
 backoff = "^2.2.1"
 art = "^6.0"
 sqlalchemy = "^2.0.18"
+psycopg2-binary = "^2.9.6"
 
 
 [build-system]

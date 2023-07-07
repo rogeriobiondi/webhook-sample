@@ -54,6 +54,16 @@ def temperature_update(body: models.Temperature):
     When a new user subscribes to this service, will receive the temperatures of several places.
     """
 
+# DLQ Operations
+@app.get("/dlqs")
+async def get_dlqs(db: Session = Depends(get_db), skip: int = 0, limit: int = 100):
+    return service.get_dlqs(db, skip=skip, limit=limit)
+
+@app.post("/dlqs")
+async def republish_dlq(request: models.DLQRepublishRequest, db: Session = Depends(get_db)):
+    service.republish_dlq_events(db, request.dlqs)
+    return { "status": "SUCCESS" }
+
 # Regular API Operations
 @app.get("/")
 async def root():

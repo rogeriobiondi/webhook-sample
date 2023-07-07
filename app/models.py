@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional
+from typing import Optional, List
 
 from pydantic import AnyHttpUrl, BaseModel
 
@@ -31,6 +31,13 @@ class Subscription(SubscriptionResponse):
     
     class Config:
         orm_mode = True
+
+# DLQ Model
+class DLQ(BaseModel):
+    event: str
+
+class DLQRepublishRequest(BaseModel):
+    dlqs: List[int] = []
 
 # Webhook Message Payloads
 class Temperature(BaseModel):

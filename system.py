@@ -1,63 +1,40 @@
-import datetime
-import json
-import socket
-import time
-from json import JSONEncoder
-from uuid import uuid4
+import hashlib
+from datetime import datetime
 
 from art import text2art
-from confluent_kafka import Producer
-from confluent_kafka.serialization import StringSerializer
+
+from app import kafka
 
 
 class Temperature(object):
-    def __init__(self, city, reading, unit, timestamp):
+    """
+    Temperature Event Description
+    """
+    def __init__(self, 
+                 city: str, 
+                 reading: float, 
+                 unit: str, 
+                 timestamp: datetime):
         self.city = city
         self.reading = reading
         self.unit = unit
         self.timestamp = timestamp  
-
-def delivery_report(err, event):
-    if err is not None:
-        print(f'Delivery failed on reading for {event.key().decode("utf8")}: {err}')
-    else:
-        print(f'Temp reading for {event.key().decode("utf8")} produced to {event.topic()}')
-
-class CustomEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (datetime.date, datetime.datetime)):
-            return obj.isoformat()
-        return json.JSONEncoder.default(self, obj)
-
-def json_serializer(o):
-    return json.dumps(o.__dict__, cls = CustomEncoder).encode('utf-8')
+        self.id = hashlib.md5(
+            (city + str(reading) + unit + timestamp.isoformat())\
+                .encode('utf-8')).hexdigest()
 
 if __name__ == '__main__':
-    data = [
-        Temperature('London', 12, 'C', datetime.datetime.now()),
-        # Temperature('Chicago', 63, 'F', datetime.datetime.now()),
-        # Temperature('Berlin', 14, 'C', datetime.datetime.now()),
-        # Temperature('Madrid', 18, 'C', datetime.datetime.now()),
-        # Temperature('Phoenix', 78, 'F', datetime.datetime.now())
-    ]
+    print(text2art("System"))
+    print("producing system message...\n")
 
-    topic = 'updates'
-    
-    string_serializer = StringSerializer('utf_8')
-
-    conf = {
-        'bootstrap.servers': "localhost:9094",
-        'client.id': socket.gethostname()
-    }
-
-    producer = Producer(conf)
-
-    for temp in data:
-        producer.produce(topic=topic, 
-                         key = string_serializer(str(uuid4())),
-                         value = json_serializer(temp),
-                         on_delivery=delivery_report)
-    producer.flush()
-
-print(text2art("System"))
-print("starting...\n")
+    # Create events 
+    temp1 = Temperature('São Paulo', 18, 'C', datetime.now())
+    temp2 = Temperature('New York', 16, 'C', datetime.now())
+    temp3 = Temperature('Tokyo', 23, 'C', datetime.now())
+    temp4 = Temperature('Roma', 8, 'C', datetime.now())
+    temp5 = Temperature('Paris', 6, 'C', datetime.now())
+    kafka.produce_message(temp1.__dict__)
+    kafka.produce_message(temp2.__dict__)
+    kafka.produce_message(temp3.__dict__)
+    kafka.produce_message(temp4.__dict__)
+    kafka.produce_message(temp5.__dict__)
