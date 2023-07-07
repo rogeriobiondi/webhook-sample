@@ -20,6 +20,7 @@ This is a sample implementation. There are several upgrades to-do:
 # Pre-reqs
 
 - GNU Make
+- Docker & Docker Compose
 - Poetry
 - Python 3.11+
 - PyEnv
@@ -104,8 +105,7 @@ You may reprocess the DLQ queue events
 ```
 curl --location 'http://localhost:9090/dlqs' \
 --header 'Content-Type: application/json' \
---data '{ "dlqs": [ id1, id2, id3..., idn ]
-}'
+--data '{ "dlqs": [ id1, id2, id3..., idn ] }'
 ```
 
 # Stopping infra

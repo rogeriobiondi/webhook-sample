@@ -15,11 +15,7 @@ class Subscriptions(Base):
     status = Column(String)
 
     class Config:
-           orm_mode = True
-
-class SubscriberStats(Base)
-      
-      
+           orm_mode = True    
 
 class DLQ(Base):
     __tablename__ = "dlqs"
