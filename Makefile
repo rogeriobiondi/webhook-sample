@@ -28,10 +28,10 @@ run-system:  ## Stop infra
 	@clear
 	@poetry run python system.py
 
-.PHONY: run-worker
-run-worker:  ## Stop infra
+.PHONY: run-processor
+run-processor:  ## Execute the Event Processor
 	@clear
-	@poetry run python worker.py
+	@poetry run python processor.py
 
 .PHONY: run-webhook
 run-webhook:  ## Stop infra

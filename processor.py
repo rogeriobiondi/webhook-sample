@@ -10,10 +10,6 @@ from sqlalchemy.orm import Session
 
 from app import orm, service, database
 
-# Get Client data
-# fakedb = db.getDb("./fakedb.json")
-# subscribers = fakedb.getAll()
-
 conf = {
     'bootstrap.servers': "localhost:9094",
     'group.id': "workers",
@@ -68,8 +64,6 @@ def notify_all_subscribers(msg: dict, subscribers: dict):
             call_subscriber_webhook(sub, msg)
         except:
             print("Notification failed! Log and/or DLQ it.")
-            orm.
-            service.create_dlq()
         
 def process_message(msg, subscribers):
     o = json.loads(msg.value().decode('utf-8'))
