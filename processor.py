@@ -71,7 +71,11 @@ def call_subscriber_webhook(client:dict,
         try:
             print(f"Sending message to client {client['id']} - <{client['name']}>: {client['url']}")
             print(f"Retry: {retry_count}...")
-            response = requests.post(client['url'], json = msg)
+            headers = {}
+            # If the client has an auth key set up, include in the headers
+            if client['auth_key']:
+                headers['Authorization'] = f"Bearer {client['auth_key']}"
+            response = requests.post(client['url'], json = msg, headers = headers)
             print("message: ", response.json())
             print("status code:", response.status_code)
             if response.status_code == 200:

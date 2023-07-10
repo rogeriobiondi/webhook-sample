@@ -13,9 +13,9 @@ This is a sample implementation. There are several upgrades to-do:
 
 - ~~Multi threading and production grade performance improvements;~~
 - ~~DLQ: DLQ and Reprocessing API.~~
-- Webhook Security: Oauth-2 key registration and authorization for secure POST CALLs;
+- ~~Webhook Security: Oauth-2 key registration and authorization for secure POST CALLs;~~
 - Service statistics
-- Subscriber statistics and circuit breaker
+- Subscriber statistics and circuit breaker (disconnect the subscriber when excess of errors)
 
 # Pre-reqs
 

@@ -1,9 +1,9 @@
 import datetime
 import hashlib
-from typing import Optional
+from typing import Optional, Annotated
 
 from art import text2art
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import AnyHttpUrl, BaseModel
 from pysondb import db
 
@@ -18,7 +18,9 @@ class Temperature(BaseModel):
 
 # Regular API Operations
 @app.post("/")
-async def root(temperature: Temperature):
+async def root(temperature: Temperature, request: Request):
+    print("Authorization header received:")
+    print(request.headers["Authorization"])
     print("Data received:")
     print(temperature)
     print("===\n")
