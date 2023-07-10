@@ -12,6 +12,11 @@ class SubscriptionRequest(BaseModel):
     url: AnyHttpUrl
     auth_key: Optional[str]
 
+class SubscriptionPatchRequest(BaseModel):
+    name: Optional[str]
+    description: Optional[str]
+    auth_key: Optional[str]
+
 # API Response
 class SubscriptionResponse(SubscriptionRequest):
     id: Optional[str]

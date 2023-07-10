@@ -47,12 +47,33 @@ async def get_subscription(subscription_id: str, db: Session = Depends(get_db)):
     if o: return o
     raise HTTPException(status_code=404, detail="Subscription not found")
 
+# List subscriptions
+@app.get("/subscriptions")
+async def get_subscriptions(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    """
+    To avoid a security issue, 
+    this operation should not be public
+    in production environment
+    """
+    # TODO if environment == production => Operation not supported
+    list_o = service.get_subscriptions(db, skip = skip, limit = limit)
+    return list_o
+
+# Patch OAuth key
+@app.patch("/subscriptions/{subscription_id}")
+async def patch_subscription(subscription_id: str, 
+                     request: models.SubscriptionPatchRequest, db: Session = Depends(get_db)):
+    update_data = request.dict(exclude_unset = True)
+    service.patch_subscription(db, subscription_id, update_data)
+    return { "status": "SUBSCRIPTION_UPDATED" }
+
 # Webhook Documentation
 @app.webhooks.post("temperature-update")
 def temperature_update(body: models.Temperature):
     """
     When a new user subscribes to this service, will receive the temperatures of several places.
     """
+    pass
 
 # DLQ Operations
 @app.get("/dlqs")

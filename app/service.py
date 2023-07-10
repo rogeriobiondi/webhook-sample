@@ -26,6 +26,25 @@ def create_subscription(db: Session, subscription: models.Subscription):
 def get_subscription_by_name(db: Session, name: str):
     return db.query(orm.Subscriptions).filter(orm.Subscriptions.name == name).first()
 
+def patch_subscription(db: Session, subscription_id: str, update_data: dict):
+    """
+    Patch the auth_key and other attributes
+    """
+    o = get_subscription(db, subscription_id)
+    if o:
+        # Allowable patch attributes (name, description and auth_key)
+        if 'name' in update_data:
+            o.name = update_data['name']
+        if 'description' in update_data:
+            o.description = update_data['description']
+        if 'auth_key' in update_data:
+            o.auth_key = update_data['auth_key']
+        o.status = "SUBSCRIPTION_UPDATED"
+        db.commit()
+        db.refresh(o)
+        return o
+    return None
+
 # DLQ Messages
 def get_dlq(db: Session, dlq_id: str):
     return db.query(orm.DLQ).filter(orm.DLQ.dlq_id == dlq_id).first()
